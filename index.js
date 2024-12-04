@@ -1,4 +1,4 @@
-// Import the dotenv package to load the environment variables
+// ใช้งาน dotenv เพื่อโหลด environment variables
 require('dotenv').config();
 
 const express = require('express');
@@ -6,15 +6,15 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-// Use environment variables for sensitive data
+// อ่านข้อมูลจาก environment variables
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-// Use body-parser to parse incoming request bodies
+// ใช้ body-parser เพื่อแปลงข้อมูลจากโพสต์
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Verify the webhook
+// Endpoint สำหรับยืนยัน Webhook
 app.get('/webhook', (req, res) => {
   const mode = req.query['hub.mode'];
   const token = req.query['hub.verify_token'];
@@ -30,7 +30,7 @@ app.get('/webhook', (req, res) => {
   }
 });
 
-// Handle messages from Facebook Messenger
+// รับข้อความจาก Facebook Messenger
 app.post('/webhook', (req, res) => {
   const messagingEvents = req.body.entry[0].messaging;
 
@@ -39,6 +39,7 @@ app.post('/webhook', (req, res) => {
     const senderId = event.sender.id;
     const message = event.message;
 
+    // หากข้อความมีการส่งข้อความมา
     if (message && message.text) {
       sendTextMessage(senderId, 'สวัสดีครับ! มีอะไรให้ช่วยไหมครับ?');
     }
@@ -47,7 +48,7 @@ app.post('/webhook', (req, res) => {
   res.status(200).send('EVENT_RECEIVED');
 });
 
-// Function to send a text message back to the user
+// ฟังก์ชันการส่งข้อความกลับไปยังผู้ใช้
 function sendTextMessage(senderId, messageText) {
   const messageData = {
     recipient: { id: senderId },
@@ -68,7 +69,7 @@ function sendTextMessage(senderId, messageText) {
   });
 }
 
-// Set up the server to listen on port 3000
+// ตั้งค่าให้ server ฟังที่ port 3000
 app.listen(3000, () => {
   console.log('Server is listening on port 3000');
 });
