@@ -1,14 +1,18 @@
+// Import the dotenv package to load the environment variables
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-// ใช้ body-parser เพื่อแปลงข้อมูลในโพสต์
+// Use environment variables for sensitive data
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
+// Use body-parser to parse incoming request bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const VERIFY_TOKEN = "AAACCCXXX";  // ใส่ Token ที่คุณตั้งไว้ใน Facebook Developer Console
-const PAGE_ACCESS_TOKEN = "EAAXP5ykXJfUBOy4Iz44pQ8ErKE9IwWDOKiWvvh1WT389HoZBkcmzWxXaryslaZBB5TEHnbYNPBZCByG0MsWEIXGVX3q6JummFO969pC3UGRRjK52h6tDRLioGNwaZCHU5ZAzm0TYOyDUdVBPK5XZBy4ijpha641g2JZAlj7NzRfXBEJKRVKDqRQgD2KH0hiCNEW7gZDZD";  // ใส่ Page Access Token ของคุณ
 
 // Verify the webhook
 app.get('/webhook', (req, res) => {
@@ -26,10 +30,10 @@ app.get('/webhook', (req, res) => {
   }
 });
 
-// รับข้อความจาก Facebook Messenger
+// Handle messages from Facebook Messenger
 app.post('/webhook', (req, res) => {
   const messagingEvents = req.body.entry[0].messaging;
-  
+
   for (let i = 0; i < messagingEvents.length; i++) {
     const event = messagingEvents[i];
     const senderId = event.sender.id;
@@ -43,7 +47,7 @@ app.post('/webhook', (req, res) => {
   res.status(200).send('EVENT_RECEIVED');
 });
 
-// ฟังก์ชันส่งข้อความ
+// Function to send a text message back to the user
 function sendTextMessage(senderId, messageText) {
   const messageData = {
     recipient: { id: senderId },
@@ -64,7 +68,7 @@ function sendTextMessage(senderId, messageText) {
   });
 }
 
-// ตั้งค่า Server ให้ทำงานที่ Port 3000
+// Set up the server to listen on port 3000
 app.listen(3000, () => {
   console.log('Server is listening on port 3000');
 });
