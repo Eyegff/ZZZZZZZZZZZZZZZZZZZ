@@ -1,0 +1,16 @@
+{
+  "name": "facebook-messenger-bot",
+  "version": "1.0.0",
+  "description": "A simple Facebook Messenger bot",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.3",
+    "body-parser": "^1.19.0",
+    "request": "^2.88.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Your Name",
+  "license": "ISC"
+}
