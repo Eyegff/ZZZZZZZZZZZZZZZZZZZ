@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const VERIFY_TOKEN = "AAACCCXXX";  // ใส่ Token ที่คุณตั้งไว้ใน Facebook Developer Console
-const PAGE_ACCESS_TOKEN = "EAAIZAPF50goYBOwBQLJY21kiZCeL6WEQF33CVqQZA7wUZAmlyzsQiuwTFElRxLUErFm34IrNxWHXBdL5nMwjlpWcpZCCXwpa9P80MZCg2gnsdo3AQVqTQdDraXPtSZCRPQ4vhxJ2ZCVxmwtjtLiv3SDfXip0ZCuSPuvpTZBKz1fol96ajl7gLXtf1ymYWKCP33o6C4mQZDZD";  // ใส่ Page Access Token ของคุณ
+const PAGE_ACCESS_TOKEN = "EAAXP5ykXJfUBOy4Iz44pQ8ErKE9IwWDOKiWvvh1WT389HoZBkcmzWxXaryslaZBB5TEHnbYNPBZCByG0MsWEIXGVX3q6JummFO969pC3UGRRjK52h6tDRLioGNwaZCHU5ZAzm0TYOyDUdVBPK5XZBy4ijpha641g2JZAlj7NzRfXBEJKRVKDqRQgD2KH0hiCNEW7gZDZD";  // ใส่ Page Access Token ของคุณ
 
 // Verify the webhook
 app.get('/webhook', (req, res) => {
